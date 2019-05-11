@@ -2,13 +2,14 @@ package io.reflectoring.reviewapp.adapter.persistence;
 
 import io.reflectoring.reviewapp.application.port.out.FindBookByTitlePort;
 import io.reflectoring.reviewapp.application.port.out.PersistBookPort;
+import io.reflectoring.reviewapp.common.PersistenceAdapter;
 import io.reflectoring.reviewapp.domain.Book;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-@Component
+@PersistenceAdapter
 @RequiredArgsConstructor
 class BookPersistenceAdapter implements FindBookByTitlePort, PersistBookPort {
 
