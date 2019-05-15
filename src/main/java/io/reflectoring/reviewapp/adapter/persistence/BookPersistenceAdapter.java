@@ -5,7 +5,6 @@ import io.reflectoring.reviewapp.application.port.out.PersistBookPort;
 import io.reflectoring.reviewapp.common.PersistenceAdapter;
 import io.reflectoring.reviewapp.domain.Book;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
