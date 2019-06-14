@@ -1,41 +1,29 @@
 plugins {
-    id 'org.springframework.boot' version '2.1.4.RELEASE'
-    id 'java'
+    id "io.spring.dependency-management" version "1.0.6.RELEASE"
 }
 
-apply plugin: 'io.spring.dependency-management'
+allprojects {
 
-group = 'io.reflectoring'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
+    group = 'io.reflectoring.reviewapp'
+    version = '0.0.1-SNAPSHOT'
 
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+
+    repositories {
+        jcenter()
     }
-}
 
-repositories {
-    jcenter()
-}
-
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
-    compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'com.h2database:h2'
-    annotationProcessor 'org.projectlombok:lombok'
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'junit' // excluding junit 4
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
     }
-    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.0.1'
-    testImplementation 'org.mockito:mockito-junit-jupiter:2.23.0'
-    testImplementation 'com.tngtech.archunit:archunit:0.9.3'
-    testImplementation 'de.adesso:junit-insights:1.1.0'
-    testImplementation 'org.junit.platform:junit-platform-launcher:1.4.2'
-}
 
-test {
-    useJUnitPlatform()
-    systemProperty 'de.adesso.junitinsights.enabled', 'true'
+    dependencyManagement {
+        imports {
+            mavenBom("org.springframework.boot:spring-boot-dependencies:2.1.5.RELEASE")
+        }
+    }
+
 }

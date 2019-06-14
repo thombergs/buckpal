@@ -1,6 +1,5 @@
-pluginManagement {
-	repositories {
-		gradlePluginPortal()
-	}
-}
-rootProject.name = 'clean-architecture-example'
+include 'common'
+include 'application'
+include 'adapters:persistence'
+include 'adapters:web'
+include 'configuration'

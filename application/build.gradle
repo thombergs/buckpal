@@ -1,0 +1,31 @@
+dependencies {
+    implementation project(':common')
+
+    implementation 'org.springframework:spring-context'
+    implementation 'org.springframework:spring-core'
+    implementation 'javax.validation:validation-api'
+
+    // Needed for Spring Data annotations on domain entities.
+    // This is a shortcut to avoid a mapping step between domain and persistence!
+    implementation 'org.springframework.data:spring-data-commons'
+
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'junit' // excluding junit 4
+    }
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.0.1'
+    testImplementation 'org.mockito:mockito-junit-jupiter:2.23.0'
+    testImplementation 'com.tngtech.archunit:archunit:0.9.3'
+    testImplementation 'de.adesso:junit-insights:1.1.0'
+    testImplementation 'org.junit.platform:junit-platform-launcher:1.4.2'
+}
+
+test {
+    useJUnitPlatform()
+    systemProperty 'de.adesso.junitinsights.enabled', 'true'
+}
+
