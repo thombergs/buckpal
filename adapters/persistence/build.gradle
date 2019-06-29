@@ -1,7 +1,7 @@
 dependencies {
     implementation project(':common')
     implementation project(':application')
-    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    api 'org.springframework.boot:spring-boot-starter-data-jdbc'
     
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'

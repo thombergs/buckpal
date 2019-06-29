@@ -9,8 +9,6 @@ dependencies {
     implementation project(':adapters:persistence')
     implementation project(':adapters:web')
 
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'junit' // excluding junit 4
     }

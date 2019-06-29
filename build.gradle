@@ -9,15 +9,10 @@ allprojects {
 
     apply plugin: 'java'
     apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'java-library'
 
     repositories {
         jcenter()
-    }
-
-    configurations {
-        compileOnly {
-            extendsFrom annotationProcessor
-        }
     }
 
     dependencyManagement {
