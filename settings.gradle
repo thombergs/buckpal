@@ -1,5 +1,7 @@
 include 'common'
-include 'application'
-include 'adapters:persistence'
-include 'adapters:web'
-include 'configuration'
+include 'cashpal-configuration'
+
+include 'adapters:cashpal-web'
+include 'adapters:cashpal-persistence'
+include 'cashpal-application'
+include 'cashpal-testdata'
