@@ -62,18 +62,9 @@ class AccountPersistenceAdapter implements
 	public void updateActivities(Account account) {
 		for (Activity activity : account.getActivityWindow().getActivities()) {
 			if (activity.getId() == null) {
-				activityRepository.save(mapToJpa(activity));
+				activityRepository.save(accountMapper.mapToJpaEntity(activity));
 			}
 		}
 	}
 
-	private ActivityJpaEntity mapToJpa(Activity activity) {
-		return new ActivityJpaEntity(
-				activity.getId() == null ? null : activity.getId().getValue(),
-				activity.getTimestamp(),
-				activity.getOwnerAccountId().getValue(),
-				activity.getSourceAccountId().getValue(),
-				activity.getTargetAccountId().getValue(),
-				activity.getMoney().getAmount().longValue());
-	}
 }

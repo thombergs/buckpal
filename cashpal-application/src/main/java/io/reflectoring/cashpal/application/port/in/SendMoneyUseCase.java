@@ -17,15 +17,18 @@ public interface SendMoneyUseCase {
 	class SendMoneyCommand extends SelfValidating<SendMoneyCommand> {
 
 		@NotNull
-		private Account.AccountId sourceAccountId;
+		private final Account.AccountId sourceAccountId;
 
 		@NotNull
-		private Account.AccountId targetAccountId;
+		private final Account.AccountId targetAccountId;
 
 		@NotNull
-		private Money money;
+		private final Money money;
 
-		public SendMoneyCommand(Account.AccountId sourceAccountId, Account.AccountId targetAccountId, Money money) {
+		public SendMoneyCommand(
+				Account.AccountId sourceAccountId,
+				Account.AccountId targetAccountId,
+				Money money) {
 			this.sourceAccountId = sourceAccountId;
 			this.targetAccountId = targetAccountId;
 			this.money = money;

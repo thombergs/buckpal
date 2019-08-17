@@ -60,11 +60,8 @@ class SendMoneyServiceTest {
 	@Test
 	void transactionSucceeds() {
 
-		AccountId sourceAccountId = new AccountId(41L);
-		Account sourceAccount = givenAnAccountWithId(sourceAccountId);
-
-		AccountId targetAccountId = new AccountId(42L);
-		Account targetAccount = givenAnAccountWithId(targetAccountId);
+		Account sourceAccount = givenSourceAccount();
+		Account targetAccount = givenTargetAccount();
 
 		givenWithdrawalWillSucceed(sourceAccount);
 		givenDepositWillSucceed(targetAccount);
@@ -72,13 +69,16 @@ class SendMoneyServiceTest {
 		Money money = Money.of(500L);
 
 		SendMoneyCommand command = new SendMoneyCommand(
-				sourceAccountId,
-				targetAccountId,
+				sourceAccount.getId(),
+				targetAccount.getId(),
 				money);
 
 		boolean success = sendMoneyService.sendMoney(command);
 
 		assertThat(success).isTrue();
+
+		AccountId sourceAccountId = sourceAccount.getId();
+		AccountId targetAccountId = targetAccount.getId();
 
 		then(accountLock).should().lockAccount(eq(sourceAccountId));
 		then(sourceAccount).should().withdraw(eq(money), eq(targetAccountId));
@@ -119,6 +119,14 @@ class SendMoneyServiceTest {
 	private void givenWithdrawalWillSucceed(Account account) {
 		given(account.withdraw(any(Money.class), any(AccountId.class)))
 				.willReturn(true);
+	}
+
+	private Account givenTargetAccount(){
+		return givenAnAccountWithId(new AccountId(42L));
+	}
+
+	private Account givenSourceAccount(){
+		return givenAnAccountWithId(new AccountId(41L));
 	}
 
 	private Account givenAnAccountWithId(AccountId id) {

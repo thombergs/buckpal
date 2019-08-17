@@ -1,7 +1,5 @@
 package io.reflectoring.cashpal.adapter.web;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.reflectoring.cashpal.adapter.web.SendMoneyController.SendMoneyForm;
 import io.reflectoring.cashpal.application.port.in.SendMoneyUseCase;
 import io.reflectoring.cashpal.application.port.in.SendMoneyUseCase.SendMoneyCommand;
 import org.junit.jupiter.api.Test;
@@ -22,20 +20,11 @@ class SendMoneyControllerTest {
 	@MockBean
 	private SendMoneyUseCase sendMoneyUseCase;
 
-	private ObjectMapper jsonMapper = new ObjectMapper();
-
 	@Test
 	void testSendMoney() throws Exception {
 
-		SendMoneyForm form = new SendMoneyForm(
-				41L,
-				42L,
-				500L
-		);
-
-		mockMvc.perform(post("/sendMoney")
-				.header("Content-Type", "application/json")
-				.content(jsonMapper.writeValueAsString(form)))
+		mockMvc.perform(post("/accounts/sendMoney/{sourceAccountId}/{targetAccountId}/{amount}", 41L, 42L, 500)
+				.header("Content-Type", "application/json"))
 				.andExpect(status().isOk());
 
 		then(sendMoneyUseCase).should().sendMoney(any(SendMoneyCommand.class));
