@@ -2,9 +2,9 @@ package io.reflectoring.buckpal.application.port.in;
 
 import javax.validation.constraints.NotNull;
 
-import io.reflectoring.buckpal.testdata.SelfValidating;
 import io.reflectoring.buckpal.domain.Account;
 import io.reflectoring.buckpal.domain.Money;
+import io.reflectoring.buckpal.testdata.SelfValidating;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
 
