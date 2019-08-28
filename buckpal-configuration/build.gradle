@@ -1,5 +1,5 @@
 plugins {
-    id "org.springframework.boot" version "2.1.5.RELEASE"
+    id "org.springframework.boot" version "2.1.7.RELEASE"
 }
 
 dependencies {
@@ -18,6 +18,8 @@ dependencies {
     testImplementation 'com.tngtech.archunit:archunit:0.9.3'
     testImplementation 'de.adesso:junit-insights:1.1.0'
     testImplementation 'org.junit.platform:junit-platform-launcher:1.4.2'
+    testImplementation 'com.h2database:h2'
+
 }
 
 test {

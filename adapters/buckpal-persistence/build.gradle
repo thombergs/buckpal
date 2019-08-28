@@ -1,10 +1,12 @@
 dependencies {
     implementation project(':common')
+    implementation project(':buckpal-application')
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
     implementation 'javax.transaction:javax.transaction-api'
 
@@ -16,6 +18,7 @@ dependencies {
     testImplementation 'com.tngtech.archunit:archunit:0.9.3'
     testImplementation 'de.adesso:junit-insights:1.1.0'
     testImplementation 'org.junit.platform:junit-platform-launcher:1.4.2'
+    testImplementation 'com.h2database:h2'
     testImplementation project(':buckpal-testdata')
 }
 
