@@ -1,8 +1,8 @@
 plugins {
-    id "io.spring.dependency-management" version "1.0.6.RELEASE"
+    id "io.spring.dependency-management" version "1.0.8.RELEASE"
 }
 
-allprojects {
+subprojects {
 
     group = 'io.reflectoring.reviewapp'
     version = '0.0.1-SNAPSHOT'
@@ -17,7 +17,7 @@ allprojects {
 
     dependencyManagement {
         imports {
-            mavenBom("org.springframework.boot:spring-boot-dependencies:2.1.5.RELEASE")
+            mavenBom("org.springframework.boot:spring-boot-dependencies:2.1.7.RELEASE")
         }
     }
 

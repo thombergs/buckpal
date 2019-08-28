@@ -6,7 +6,6 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-    implementation 'javax.validation:validation-api'
     implementation 'javax.transaction:javax.transaction-api'
 
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
