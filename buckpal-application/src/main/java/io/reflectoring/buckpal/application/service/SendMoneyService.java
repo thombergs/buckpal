@@ -1,9 +1,5 @@
 package io.reflectoring.buckpal.application.service;
 
-import javax.transaction.Transactional;
-
-import java.time.LocalDateTime;
-
 import io.reflectoring.buckpal.application.port.in.SendMoneyUseCase;
 import io.reflectoring.buckpal.application.port.out.AccountLock;
 import io.reflectoring.buckpal.application.port.out.LoadAccountPort;
@@ -11,6 +7,9 @@ import io.reflectoring.buckpal.application.port.out.UpdateAccountStatePort;
 import io.reflectoring.buckpal.domain.Account;
 import io.reflectoring.buckpal.testdata.UseCase;
 import lombok.RequiredArgsConstructor;
+
+import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 
 @RequiredArgsConstructor
 @UseCase
@@ -20,9 +19,15 @@ public class SendMoneyService implements SendMoneyUseCase {
 	private final LoadAccountPort loadAccountPort;
 	private final AccountLock accountLock;
 	private final UpdateAccountStatePort updateAccountStatePort;
+	private final MoneyTransferProperties moneyTransferProperties;
 
 	@Override
 	public boolean sendMoney(SendMoneyCommand command) {
+
+		if(command.getMoney().isGreaterThan(moneyTransferProperties.getMaximumTransferThreshold())){
+			throw new ThresholdExceededException(moneyTransferProperties.getMaximumTransferThreshold(), command.getMoney());
+		}
+
 		LocalDateTime baselineDate = LocalDateTime.now().minusDays(10);
 
 		Account sourceAccount = loadAccountPort.loadAccount(

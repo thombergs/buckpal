@@ -4,6 +4,9 @@ plugins {
 
 dependencies {
 
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    
     implementation project(':common')
     implementation project(':buckpal-application')
     implementation project(':adapters:buckpal-persistence')
