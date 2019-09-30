@@ -1,9 +1,5 @@
 package io.reflectoring.buckpal.application.service;
 
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import io.reflectoring.buckpal.application.port.in.SendMoneyUseCase.SendMoneyCommand;
 import io.reflectoring.buckpal.application.port.out.AccountLock;
 import io.reflectoring.buckpal.application.port.out.LoadAccountPort;
@@ -14,6 +10,12 @@ import io.reflectoring.buckpal.domain.Money;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
@@ -69,16 +71,16 @@ class SendMoneyServiceTest {
 		Money money = Money.of(500L);
 
 		SendMoneyCommand command = new SendMoneyCommand(
-				sourceAccount.getId(),
-				targetAccount.getId(),
+				sourceAccount.getId().get(),
+				targetAccount.getId().get(),
 				money);
 
 		boolean success = sendMoneyService.sendMoney(command);
 
 		assertThat(success).isTrue();
 
-		AccountId sourceAccountId = sourceAccount.getId();
-		AccountId targetAccountId = targetAccount.getId();
+		AccountId sourceAccountId = sourceAccount.getId().get();
+		AccountId targetAccountId = targetAccount.getId().get();
 
 		then(accountLock).should().lockAccount(eq(sourceAccountId));
 		then(sourceAccount).should().withdraw(eq(money), eq(targetAccountId));
@@ -99,6 +101,7 @@ class SendMoneyServiceTest {
 		List<AccountId> updatedAccountIds = accountCaptor.getAllValues()
 				.stream()
 				.map(Account::getId)
+				.map(Optional::get)
 				.collect(Collectors.toList());
 
 		for(AccountId accountId : accountIds){
@@ -132,8 +135,8 @@ class SendMoneyServiceTest {
 	private Account givenAnAccountWithId(AccountId id) {
 		Account account = Mockito.mock(Account.class);
 		given(account.getId())
-				.willReturn(id);
-		given(loadAccountPort.loadAccount(eq(account.getId()), any(LocalDateTime.class)))
+				.willReturn(Optional.of(id));
+		given(loadAccountPort.loadAccount(eq(account.getId().get()), any(LocalDateTime.class)))
 				.willReturn(account);
 		return account;
 	}
