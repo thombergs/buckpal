@@ -12,9 +12,10 @@ import io.reflectoring.buckpal.domain.Account;
 import io.reflectoring.buckpal.domain.Account.AccountId;
 import io.reflectoring.buckpal.domain.Activity;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
-@PersistenceAdapter
+@Component
 class AccountPersistenceAdapter implements
 		LoadAccountPort,
 		UpdateAccountStatePort {
@@ -24,7 +25,9 @@ class AccountPersistenceAdapter implements
 	private final AccountMapper accountMapper;
 
 	@Override
-	public Account loadAccount(AccountId accountId, LocalDateTime baselineDate) {
+	public Account loadAccount(
+					AccountId accountId,
+					LocalDateTime baselineDate) {
 
 		AccountJpaEntity account =
 				accountRepository.findById(accountId.getValue())

@@ -3,6 +3,7 @@ package io.reflectoring.buckpal.domain;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -66,7 +67,7 @@ public class ActivityWindow {
 	}
 
 	public List<Activity> getActivities() {
-		return new ArrayList<>(this.activities);
+		return Collections.unmodifiableList(this.activities);
 	}
 
 	public void addActivity(Activity activity) {

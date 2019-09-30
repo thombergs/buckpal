@@ -25,7 +25,7 @@ class SendMoneyControllerTest {
 	@Test
 	void testSendMoney() throws Exception {
 
-		mockMvc.perform(post("/accounts/sendMoney/{sourceAccountId}/{targetAccountId}/{amount}",
+		mockMvc.perform(post("/accounts/send/{sourceAccountId}/{targetAccountId}/{amount}",
 				41L, 42L, 500)
 				.header("Content-Type", "application/json"))
 				.andExpect(status().isOk());

@@ -1,12 +1,12 @@
 package io.reflectoring.buckpal.application.port.in;
 
-import javax.validation.constraints.NotNull;
-
-import io.reflectoring.buckpal.domain.Account;
+import io.reflectoring.buckpal.domain.Account.AccountId;
 import io.reflectoring.buckpal.domain.Money;
 import io.reflectoring.buckpal.testdata.SelfValidating;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
+
+import javax.validation.constraints.NotNull;
 
 public interface SendMoneyUseCase {
 
@@ -17,17 +17,17 @@ public interface SendMoneyUseCase {
 	class SendMoneyCommand extends SelfValidating<SendMoneyCommand> {
 
 		@NotNull
-		private final Account.AccountId sourceAccountId;
+		private final AccountId sourceAccountId;
 
 		@NotNull
-		private final Account.AccountId targetAccountId;
+		private final AccountId targetAccountId;
 
 		@NotNull
 		private final Money money;
 
 		public SendMoneyCommand(
-				Account.AccountId sourceAccountId,
-				Account.AccountId targetAccountId,
+				AccountId sourceAccountId,
+				AccountId targetAccountId,
 				Money money) {
 			this.sourceAccountId = sourceAccountId;
 			this.targetAccountId = targetAccountId;

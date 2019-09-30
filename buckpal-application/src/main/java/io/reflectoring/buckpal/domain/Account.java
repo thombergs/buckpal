@@ -1,6 +1,7 @@
 package io.reflectoring.buckpal.domain;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -19,34 +20,41 @@ public class Account {
 	/**
 	 * The unique ID of the account.
 	 */
-	@Getter
-	private AccountId id;
+	@Getter private final AccountId id;
 
 	/**
 	 * The baseline balance of the account. This was the balance of the account before the first
 	 * activity in the activityWindow.
 	 */
-	private Money baselineBalance;
+	@Getter private final Money baselineBalance;
 
 	/**
 	 * The window of latest activities on this account.
 	 */
-	@Getter
-	private ActivityWindow activityWindow;
+	@Getter private final ActivityWindow activityWindow;
 
 	/**
 	 * Creates an {@link Account} entity without an ID. Use to create a new entity that is not yet
 	 * persisted.
 	 */
-	public static Account withoutId(Money baselineBalance, ActivityWindow activityWindow) {
+	public static Account withoutId(
+					Money baselineBalance,
+					ActivityWindow activityWindow) {
 		return new Account(null, baselineBalance, activityWindow);
 	}
 
 	/**
 	 * Creates an {@link Account} entity with an ID. Use to reconstitute a persisted entity.
 	 */
-	public static Account withId(AccountId accountId, Money baselineBalance, ActivityWindow activityWindow) {
+	public static Account withId(
+					AccountId accountId,
+					Money baselineBalance,
+					ActivityWindow activityWindow) {
 		return new Account(accountId, baselineBalance, activityWindow);
+	}
+
+	public Optional<AccountId> getId(){
+		return Optional.ofNullable(this.id);
 	}
 
 	/**
