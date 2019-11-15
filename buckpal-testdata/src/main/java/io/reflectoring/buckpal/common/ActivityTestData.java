@@ -1,4 +1,4 @@
-package io.reflectoring.buckpal.testdata;
+package io.reflectoring.buckpal.common;
 
 import java.time.LocalDateTime;
 

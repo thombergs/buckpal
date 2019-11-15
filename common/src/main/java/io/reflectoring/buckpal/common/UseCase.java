@@ -1,4 +1,4 @@
-package io.reflectoring.buckpal.testdata;
+package io.reflectoring.buckpal.common;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Component
-public @interface PersistenceAdapter {
+public @interface UseCase {
 
   /**
    * The value may indicate a suggestion for a logical component name,

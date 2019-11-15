@@ -2,6 +2,7 @@ package io.reflectoring.buckpal.adapter.web;
 
 import io.reflectoring.buckpal.application.port.in.SendMoneyUseCase;
 import io.reflectoring.buckpal.application.port.in.SendMoneyUseCase.SendMoneyCommand;
+import io.reflectoring.buckpal.common.WebAdapter;
 import io.reflectoring.buckpal.domain.Account.AccountId;
 import io.reflectoring.buckpal.domain.Money;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@WebAdapter
 @RestController
 @RequiredArgsConstructor
 public class SendMoneyController {

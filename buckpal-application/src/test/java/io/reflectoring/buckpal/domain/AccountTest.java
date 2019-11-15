@@ -2,8 +2,8 @@ package io.reflectoring.buckpal.domain;
 
 import io.reflectoring.buckpal.domain.Account.AccountId;
 import org.junit.jupiter.api.Test;
-import static io.reflectoring.buckpal.testdata.AccountTestData.*;
-import static io.reflectoring.buckpal.testdata.ActivityTestData.*;
+import static io.reflectoring.buckpal.common.AccountTestData.*;
+import static io.reflectoring.buckpal.common.ActivityTestData.*;
 import static org.assertj.core.api.Assertions.*;
 
 class AccountTest {

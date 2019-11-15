@@ -2,7 +2,7 @@ package io.reflectoring.buckpal.application.port.in;
 
 import io.reflectoring.buckpal.domain.Account.AccountId;
 import io.reflectoring.buckpal.domain.Money;
-import io.reflectoring.buckpal.testdata.SelfValidating;
+import io.reflectoring.buckpal.common.SelfValidating;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
 

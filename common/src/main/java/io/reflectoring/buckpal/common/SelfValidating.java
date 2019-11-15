@@ -1,4 +1,4 @@
-package io.reflectoring.buckpal.testdata;
+package io.reflectoring.buckpal.common;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;

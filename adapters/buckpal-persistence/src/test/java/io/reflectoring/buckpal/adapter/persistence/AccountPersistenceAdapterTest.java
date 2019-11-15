@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.jdbc.Sql;
-import static io.reflectoring.buckpal.testdata.AccountTestData.*;
-import static io.reflectoring.buckpal.testdata.ActivityTestData.*;
+import static io.reflectoring.buckpal.common.AccountTestData.*;
+import static io.reflectoring.buckpal.common.ActivityTestData.*;
 import static org.assertj.core.api.Assertions.*;
 
 @DataJpaTest

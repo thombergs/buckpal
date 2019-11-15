@@ -7,7 +7,7 @@ import java.util.List;
 
 import io.reflectoring.buckpal.application.port.out.LoadAccountPort;
 import io.reflectoring.buckpal.application.port.out.UpdateAccountStatePort;
-import io.reflectoring.buckpal.testdata.PersistenceAdapter;
+import io.reflectoring.buckpal.common.PersistenceAdapter;
 import io.reflectoring.buckpal.domain.Account;
 import io.reflectoring.buckpal.domain.Account.AccountId;
 import io.reflectoring.buckpal.domain.Activity;
@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
-@Component
+@PersistenceAdapter
 class AccountPersistenceAdapter implements
 		LoadAccountPort,
 		UpdateAccountStatePort {

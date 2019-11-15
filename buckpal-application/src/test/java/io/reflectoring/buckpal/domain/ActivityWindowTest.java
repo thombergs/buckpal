@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import io.reflectoring.buckpal.domain.Account.AccountId;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import static io.reflectoring.buckpal.testdata.ActivityTestData.*;
+import static io.reflectoring.buckpal.common.ActivityTestData.*;
 
 class ActivityWindowTest {
 

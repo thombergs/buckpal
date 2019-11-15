@@ -4,17 +4,16 @@ import io.reflectoring.buckpal.application.port.in.SendMoneyUseCase;
 import io.reflectoring.buckpal.application.port.out.AccountLock;
 import io.reflectoring.buckpal.application.port.out.LoadAccountPort;
 import io.reflectoring.buckpal.application.port.out.UpdateAccountStatePort;
+import io.reflectoring.buckpal.common.UseCase;
 import io.reflectoring.buckpal.domain.Account;
 import io.reflectoring.buckpal.domain.Account.AccountId;
-import io.reflectoring.buckpal.testdata.UseCase;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 
 @RequiredArgsConstructor
-@Component
+@UseCase
 @Transactional
 public class SendMoneyService implements SendMoneyUseCase {
 
@@ -39,9 +38,9 @@ public class SendMoneyService implements SendMoneyUseCase {
 				baselineDate);
 
 		AccountId sourceAccountId = sourceAccount.getId()
-						.orElseThrow(() -> new IllegalStateException("expected source account ID not to be empty"));
+				.orElseThrow(() -> new IllegalStateException("expected source account ID not to be empty"));
 		AccountId targetAccountId = targetAccount.getId()
-						.orElseThrow(() -> new IllegalStateException("expected target account ID not to be empty"));
+				.orElseThrow(() -> new IllegalStateException("expected target account ID not to be empty"));
 
 		accountLock.lockAccount(sourceAccountId);
 		if (!sourceAccount.withdraw(command.getMoney(), targetAccountId)) {
@@ -71,3 +70,7 @@ public class SendMoneyService implements SendMoneyUseCase {
 	}
 
 }
+
+
+
+
