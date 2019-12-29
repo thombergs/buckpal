@@ -12,6 +12,7 @@ dependencies {
     implementation project(':adapters:buckpal-persistence')
     implementation project(':adapters:buckpal-web')
     implementation ('org.springframework.boot:spring-boot-starter-web')
+    runtimeOnly 'com.h2database:h2'
 
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'junit' // excluding junit 4

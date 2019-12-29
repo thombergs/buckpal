@@ -6,6 +6,11 @@ This is the companion code to my eBook [Get Your Hands Dirty on Clean Architectu
 
 It implements a domain-centric "Hexagonal" approach of a common web application with Java and Spring Boot. 
 
+## Companion Articles
+
+* [Hexagonal Architecture with Java and Spring](https://reflectoring.io/spring-hexagonal/)
+* [Building a Multi-Module Spring Boot Application with Gradle](https://reflectoring.io/spring-boot-gradle-multi-module/)
+
 ## Prerequisites
 
 * JDK 8
