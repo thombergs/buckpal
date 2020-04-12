@@ -1,12 +1,10 @@
 dependencies {
     implementation project(':common')
     implementation project(':buckpal-application')
-    
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
 
+    implementation 'org.springframework:spring-web'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'junit' // excluding junit 4
     }
