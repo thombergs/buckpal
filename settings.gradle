@@ -1,3 +1,5 @@
+rootProject.name = 'buckpal'
+
 include 'common'
 include 'buckpal-configuration'
 
