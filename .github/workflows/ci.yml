@@ -11,7 +11,7 @@ jobs:
     - name: "Setup Java"
       uses: actions/setup-java@v1
       with:
-        java-version: 14
+        java-version: 8
     - name: "Run Gradle build"
       run: chmod 755 gradlew && ./gradlew build -Dci=true
     - name: "Zip build reports"
