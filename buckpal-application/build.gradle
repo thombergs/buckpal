@@ -24,3 +24,7 @@ test {
     systemProperty 'de.adesso.junitinsights.enabled', 'true'
 }
 
+jar {
+    destinationDirectory=file('../dist')
+}
+
