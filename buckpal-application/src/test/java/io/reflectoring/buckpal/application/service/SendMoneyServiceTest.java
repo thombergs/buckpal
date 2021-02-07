@@ -1,7 +1,7 @@
 package io.reflectoring.buckpal.application.service;
 
 import io.reflectoring.buckpal.application.port.in.SendMoneyUseCase.SendMoneyCommand;
-import io.reflectoring.buckpal.application.port.out.AccountLock;
+import io.reflectoring.buckpal.application.port.in.AccountLockUseCase;
 import io.reflectoring.buckpal.application.port.out.LoadAccountPort;
 import io.reflectoring.buckpal.application.port.out.UpdateAccountStatePort;
 import io.reflectoring.buckpal.domain.Account;
@@ -24,14 +24,14 @@ class SendMoneyServiceTest {
 	private final LoadAccountPort loadAccountPort =
 			Mockito.mock(LoadAccountPort.class);
 
-	private final AccountLock accountLock =
-			Mockito.mock(AccountLock.class);
+	private final AccountLockUseCase accountLockUseCase =
+			Mockito.mock(AccountLockUseCase.class);
 
 	private final UpdateAccountStatePort updateAccountStatePort =
 			Mockito.mock(UpdateAccountStatePort.class);
 
 	private final SendMoneyService sendMoneyService =
-			new SendMoneyService(loadAccountPort, accountLock, updateAccountStatePort, moneyTransferProperties());
+			new SendMoneyService(loadAccountPort, accountLockUseCase, updateAccountStatePort, moneyTransferProperties());
 
 	@Test
 	void givenWithdrawalFails_thenOnlySourceAccountIsLockedAndReleased() {
@@ -54,9 +54,9 @@ class SendMoneyServiceTest {
 
 		assertThat(success).isFalse();
 
-		then(accountLock).should().lockAccount(eq(sourceAccountId));
-		then(accountLock).should().releaseAccount(eq(sourceAccountId));
-		then(accountLock).should(times(0)).lockAccount(eq(targetAccountId));
+		then(accountLockUseCase).should().lockAccount(eq(sourceAccountId));
+		then(accountLockUseCase).should().releaseAccount(eq(sourceAccountId));
+		then(accountLockUseCase).should(times(0)).lockAccount(eq(targetAccountId));
 	}
 
 	@Test
@@ -82,13 +82,13 @@ class SendMoneyServiceTest {
 		AccountId sourceAccountId = sourceAccount.getId().get();
 		AccountId targetAccountId = targetAccount.getId().get();
 
-		then(accountLock).should().lockAccount(eq(sourceAccountId));
+		then(accountLockUseCase).should().lockAccount(eq(sourceAccountId));
 		then(sourceAccount).should().withdraw(eq(money), eq(targetAccountId));
-		then(accountLock).should().releaseAccount(eq(sourceAccountId));
+		then(accountLockUseCase).should().releaseAccount(eq(sourceAccountId));
 
-		then(accountLock).should().lockAccount(eq(targetAccountId));
+		then(accountLockUseCase).should().lockAccount(eq(targetAccountId));
 		then(targetAccount).should().deposit(eq(money), eq(sourceAccountId));
-		then(accountLock).should().releaseAccount(eq(targetAccountId));
+		then(accountLockUseCase).should().releaseAccount(eq(targetAccountId));
 
 		thenAccountsHaveBeenUpdated(sourceAccountId, targetAccountId);
 	}

@@ -1,7 +1,7 @@
 package io.reflectoring.buckpal.application.service;
 
 import io.reflectoring.buckpal.application.port.in.SendMoneyUseCase;
-import io.reflectoring.buckpal.application.port.out.AccountLock;
+import io.reflectoring.buckpal.application.port.in.AccountLockUseCase;
 import io.reflectoring.buckpal.application.port.out.LoadAccountPort;
 import io.reflectoring.buckpal.application.port.out.UpdateAccountStatePort;
 import io.reflectoring.buckpal.common.UseCase;
@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 public class SendMoneyService implements SendMoneyUseCase {
 
 	private final LoadAccountPort loadAccountPort;
-	private final AccountLock accountLock;
+	private final AccountLockUseCase accountLockUseCase;
 	private final UpdateAccountStatePort updateAccountStatePort;
 	private final MoneyTransferProperties moneyTransferProperties;
 
@@ -42,24 +42,24 @@ public class SendMoneyService implements SendMoneyUseCase {
 		AccountId targetAccountId = targetAccount.getId()
 				.orElseThrow(() -> new IllegalStateException("expected target account ID not to be empty"));
 
-		accountLock.lockAccount(sourceAccountId);
+		accountLockUseCase.lockAccount(sourceAccountId);
 		if (!sourceAccount.withdraw(command.getMoney(), targetAccountId)) {
-			accountLock.releaseAccount(sourceAccountId);
+			accountLockUseCase.releaseAccount(sourceAccountId);
 			return false;
 		}
 
-		accountLock.lockAccount(targetAccountId);
+		accountLockUseCase.lockAccount(targetAccountId);
 		if (!targetAccount.deposit(command.getMoney(), sourceAccountId)) {
-			accountLock.releaseAccount(sourceAccountId);
-			accountLock.releaseAccount(targetAccountId);
+			accountLockUseCase.releaseAccount(sourceAccountId);
+			accountLockUseCase.releaseAccount(targetAccountId);
 			return false;
 		}
 
 		updateAccountStatePort.updateActivities(sourceAccount);
 		updateAccountStatePort.updateActivities(targetAccount);
 
-		accountLock.releaseAccount(sourceAccountId);
-		accountLock.releaseAccount(targetAccountId);
+		accountLockUseCase.releaseAccount(sourceAccountId);
+		accountLockUseCase.releaseAccount(targetAccountId);
 		return true;
 	}
 
