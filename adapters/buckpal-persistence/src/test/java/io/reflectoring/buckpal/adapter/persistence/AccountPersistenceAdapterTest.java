@@ -1,7 +1,5 @@
 package io.reflectoring.buckpal.adapter.persistence;
 
-import java.time.LocalDateTime;
-
 import io.reflectoring.buckpal.domain.Account;
 import io.reflectoring.buckpal.domain.Account.AccountId;
 import io.reflectoring.buckpal.domain.ActivityWindow;
@@ -11,9 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.jdbc.Sql;
-import static io.reflectoring.buckpal.common.AccountTestData.*;
-import static io.reflectoring.buckpal.common.ActivityTestData.*;
-import static org.assertj.core.api.Assertions.*;
+
+import java.time.LocalDateTime;
+
+import static io.reflectoring.buckpal.common.AccountTestData.defaultAccount;
+import static io.reflectoring.buckpal.common.ActivityTestData.defaultActivity;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @Import({AccountPersistenceAdapter.class, AccountMapper.class})

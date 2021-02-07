@@ -1,7 +1,7 @@
 package io.reflectoring.buckpal.application.service;
 
 import io.reflectoring.buckpal.application.port.in.SendMoneyUseCase;
-import io.reflectoring.buckpal.application.port.out.AccountLock;
+import io.reflectoring.buckpal.application.port.in.AccountLock;
 import io.reflectoring.buckpal.application.port.out.LoadAccountPort;
 import io.reflectoring.buckpal.application.port.out.UpdateAccountStatePort;
 import io.reflectoring.buckpal.common.UseCase;
