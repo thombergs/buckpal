@@ -55,11 +55,12 @@ public class Account {
 	 */
 	public static Account withId(
 					AccountId accountId,
+					LocalDate createdAt,
 					Money baselineBalance,
 					ActivityWindow activityWindow) {
-		LocalDate createdAt = LocalDate.now();
 		return new Account(accountId, baselineBalance, activityWindow, createdAt);
 	}
+
 
 	public Optional<AccountId> getId(){
 		return Optional.ofNullable(this.id);
