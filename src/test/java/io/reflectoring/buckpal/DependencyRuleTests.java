@@ -9,13 +9,13 @@ class DependencyRuleTests {
 
 	@Test
 	void validateRegistrationContextArchitecture() {
-		HexagonalArchitecture.boundedContext("io.reflectoring.buckpal")
+		HexagonalArchitecture.boundedContext("io.reflectoring.buckpal.account")
 
 				.withDomainLayer("domain")
 
 				.withAdaptersLayer("adapter")
-				.incoming("web")
-				.outgoing("persistence")
+				.incoming("in.web")
+				.outgoing("out.persistence")
 				.and()
 
 				.withApplicationLayer("application")
