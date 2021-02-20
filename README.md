@@ -1,6 +1,6 @@
 # Example Implementation of a Hexagonal Architecture
 
-[![Build Status](https://travis-ci.org/thombergs/buckpal.svg?branch=master)](https://travis-ci.org/thombergs/buckpal)
+[![CI](https://github.com/thombergs/buckpal/actions/workflows/ci.yml/badge.svg)](https://github.com/thombergs/buckpal/actions/workflows/ci.yml)
 
 This is the companion code to my eBook [Get Your Hands Dirty on Clean Architecture](https://leanpub.com/get-your-hands-dirty-on-clean-architecture).
 
