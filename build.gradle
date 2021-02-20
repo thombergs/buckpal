@@ -1,29 +1,47 @@
 plugins {
-    id "io.spring.dependency-management" version "1.0.8.RELEASE"
+    id 'org.springframework.boot' version '2.4.3'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }
 
-subprojects {
 
-    group = 'io.reflectoring.reviewapp'
-    version = '0.0.1-SNAPSHOT'
+group = 'io.reflectoring.buckpal'
+version = '0.0.1-SNAPSHOT'
 
-    apply plugin: 'java'
-    apply plugin: 'io.spring.dependency-management'
-    apply plugin: 'java-library'
+apply plugin: 'java'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'java-library'
 
-    repositories {
-        jcenter()
+repositories {
+    mavenCentral()
+}
+
+compileJava {
+    sourceCompatibility = 11
+    targetCompatibility = 11
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    implementation ('org.springframework.boot:spring-boot-starter-web')
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'junit' // excluding junit 4
     }
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.0.1'
+    testImplementation 'org.mockito:mockito-junit-jupiter:2.23.0'
+    testImplementation 'com.tngtech.archunit:archunit:0.9.3'
+    testImplementation 'org.junit.platform:junit-platform-launcher:1.4.2'
+    testImplementation 'com.h2database:h2'
 
-    dependencyManagement {
-        imports {
-            mavenBom("org.springframework.boot:spring-boot-dependencies:2.1.9.RELEASE")
-        }
-    }
-
-    compileJava {
-        sourceCompatibility = 1.8
-        targetCompatibility = 1.8
-    }
+    runtimeOnly 'com.h2database:h2'
 
 }
+
+test {
+    useJUnitPlatform()
+}
+

@@ -1,0 +1,36 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: "Checkout sources"
+      uses: actions/checkout@v1
+
+    - name: "Setup Java"
+      uses: actions/setup-java@v1
+      with:
+        java-version: 14
+
+    - name: "Initialize Gradle dependencies cache"
+      uses: actions/cache@v2
+      with:
+        path: ~/.gradle/caches
+        key: ${{ runner.os }}-gradle-caches-${{ hashFiles('**/build.gradle') }}
+
+    - name: "Run Gradle build"
+      run: chmod 755 gradlew && ./gradlew build
+
+    - name: "Zip build reports"
+      if: failure()
+      run: zip -r reports.zip **/build/reports
+
+    - uses: actions/upload-artifact@v1
+      name: "Upload build reports"
+      if: failure()
+      with:
+        name: reports
+        path: reports.zip

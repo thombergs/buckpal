@@ -1,7 +1,0 @@
-include 'common'
-include 'buckpal-configuration'
-
-include 'adapters:buckpal-web'
-include 'adapters:buckpal-persistence'
-include 'buckpal-application'
-include 'buckpal-testdata'
