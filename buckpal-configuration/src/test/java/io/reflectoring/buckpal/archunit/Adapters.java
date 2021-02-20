@@ -17,12 +17,12 @@ public class Adapters extends ArchitectureElement {
   }
 
   public Adapters outgoing(String packageName) {
-    this.incomingAdapterPackages.add(fullQualifiedPackage(packageName));
+    this.outgoingAdapterPackages.add(fullQualifiedPackage(packageName));
     return this;
   }
 
   public Adapters incoming(String packageName) {
-    this.outgoingAdapterPackages.add(fullQualifiedPackage(packageName));
+    this.incomingAdapterPackages.add(fullQualifiedPackage(packageName));
     return this;
   }
 
