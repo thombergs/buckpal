@@ -13,5 +13,5 @@ It implements a domain-centric "Hexagonal" approach of a common web application 
 
 ## Prerequisites
 
-* JDK 8
+* JDK 11
 * this project uses Lombok, so enable annotation processing in your IDE
