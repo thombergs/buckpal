@@ -20,7 +20,7 @@ public class Account {
 	/**
 	 * The unique ID of the account.
 	 */
-	@Getter private final AccountId id;
+	private final AccountId id;
 
 	/**
 	 * The baseline balance of the account. This was the balance of the account before the first

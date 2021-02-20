@@ -1,11 +1,20 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+}
+
 plugins {
-    id "io.spring.dependency-management" version "1.0.8.RELEASE"
+    id "io.spring.dependency-management" version "${dependency_management_version}"
+}
+
+
+allprojects {
+	group = 'io.reflectoring.reviewapp'
+	version = '0.0.1-SNAPSHOT'
 }
 
 subprojects {
-
-    group = 'io.reflectoring.reviewapp'
-    version = '0.0.1-SNAPSHOT'
 
     apply plugin: 'java'
     apply plugin: 'io.spring.dependency-management'
@@ -17,7 +26,7 @@ subprojects {
 
     dependencyManagement {
         imports {
-            mavenBom("org.springframework.boot:spring-boot-dependencies:2.1.9.RELEASE")
+            mavenBom("org.springframework.boot:spring-boot-dependencies:${springboot_version}")
         }
     }
 

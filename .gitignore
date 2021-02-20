@@ -1,6 +1,15 @@
 HELP.md
 .gradle
+
+### build directory and subdirectories
 build/
+adapters/buckpal-web/build/*
+adapters/buckpal-persistence/build/*
+adapters/build/*
+buckpal-application/build/
+buckpal-configuration/build/
+buckpal-testdata/build/
+
 !gradle/wrapper/gradle-wrapper.jar
 
 ### STS ###
