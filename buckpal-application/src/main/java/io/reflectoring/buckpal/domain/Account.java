@@ -1,12 +1,13 @@
 package io.reflectoring.buckpal.domain;
 
-import java.time.LocalDateTime;
-import java.util.Optional;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Value;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 /**
  * An account that holds a certain amount of money. An {@link Account} object only
@@ -34,13 +35,19 @@ public class Account {
 	@Getter private final ActivityWindow activityWindow;
 
 	/**
+	 * Creation date of account
+	 */
+	@Getter private final LocalDate createdAt;
+
+	/**
 	 * Creates an {@link Account} entity without an ID. Use to create a new entity that is not yet
 	 * persisted.
 	 */
 	public static Account withoutId(
 					Money baselineBalance,
 					ActivityWindow activityWindow) {
-		return new Account(null, baselineBalance, activityWindow);
+		LocalDate createdAt = LocalDate.now();
+		return new Account(null, baselineBalance, activityWindow, createdAt);
 	}
 
 	/**
@@ -48,10 +55,12 @@ public class Account {
 	 */
 	public static Account withId(
 					AccountId accountId,
+					LocalDate createdAt,
 					Money baselineBalance,
 					ActivityWindow activityWindow) {
-		return new Account(accountId, baselineBalance, activityWindow);
+		return new Account(accountId, baselineBalance, activityWindow, createdAt);
 	}
+
 
 	public Optional<AccountId> getId(){
 		return Optional.ofNullable(this.id);

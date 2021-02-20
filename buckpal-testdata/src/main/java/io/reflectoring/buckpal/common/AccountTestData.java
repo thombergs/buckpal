@@ -5,6 +5,8 @@ import io.reflectoring.buckpal.domain.Account.AccountId;
 import io.reflectoring.buckpal.domain.ActivityWindow;
 import io.reflectoring.buckpal.domain.Money;
 
+import java.time.LocalDate;
+
 public class AccountTestData {
 
 	public static AccountBuilder defaultAccount() {
@@ -20,6 +22,7 @@ public class AccountTestData {
 	public static class AccountBuilder {
 
 		private AccountId accountId;
+		private LocalDate createdAt;
 		private Money baselineBalance;
 		private ActivityWindow activityWindow;
 
@@ -39,7 +42,7 @@ public class AccountTestData {
 		}
 
 		public Account build() {
-			return Account.withId(this.accountId, this.baselineBalance, this.activityWindow);
+			return Account.withId(this.accountId, this.createdAt, this.baselineBalance, this.activityWindow);
 		}
 
 	}

@@ -26,6 +26,7 @@ class AccountMapper {
 
 		return Account.withId(
 				new AccountId(account.getId()),
+				account.getCreatedAt(),
 				baselineBalance,
 				mapToActivityWindow(activities));
 

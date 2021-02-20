@@ -1,25 +1,24 @@
 package io.reflectoring.buckpal;
 
-import java.time.LocalDateTime;
-
 import io.reflectoring.buckpal.application.port.out.LoadAccountPort;
 import io.reflectoring.buckpal.domain.Account;
 import io.reflectoring.buckpal.domain.Account.AccountId;
 import io.reflectoring.buckpal.domain.Money;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.test.context.jdbc.Sql;
-import static org.assertj.core.api.BDDAssertions.*;
+
+import java.time.LocalDateTime;
+
+import static org.assertj.core.api.BDDAssertions.then;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@AutoConfigureMockMvc
 class SendMoneySystemTest {
 
 	@Autowired
@@ -35,7 +34,7 @@ class SendMoneySystemTest {
 		Money initialSourceBalance = sourceAccount().calculateBalance();
 		Money initialTargetBalance = targetAccount().calculateBalance();
 
-		ResponseEntity response = whenSendMoney(
+		ResponseEntity<?> response = whenSendMoney(
 				sourceAccountId(),
 				targetAccountId(),
 				transferredAmount());
@@ -66,7 +65,7 @@ class SendMoneySystemTest {
 	}
 
 
-	private ResponseEntity whenSendMoney(
+	private ResponseEntity<?> whenSendMoney(
 			AccountId sourceAccountId,
 			AccountId targetAccountId,
 			Money amount) {
