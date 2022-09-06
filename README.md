@@ -17,4 +17,3 @@ It implements a domain-centric "Hexagonal" approach of a common web application 
 
 * JDK 11
 * this project uses Lombok, so enable annotation processing in your IDE
-TEST
