@@ -23,10 +23,10 @@ abstract class ArchitectureElement {
   static void denyDependency(String fromPackageName, String toPackageName, JavaClasses classes) {
     noClasses()
         .that()
-        .resideInAPackage("io.reflectoring.reviewapp.domain..")
+        .resideInAPackage(matchAllClassesInPackage(fromPackageName))
         .should()
         .dependOnClassesThat()
-        .resideInAnyPackage("io.reflectoring.reviewapp.application..")
+        .resideInAnyPackage(matchAllClassesInPackage(toPackageName))
         .check(classes);
   }
 
@@ -34,13 +34,7 @@ abstract class ArchitectureElement {
       List<String> fromPackages, List<String> toPackages, JavaClasses classes) {
     for (String fromPackage : fromPackages) {
       for (String toPackage : toPackages) {
-        noClasses()
-            .that()
-            .resideInAPackage(matchAllClassesInPackage(fromPackage))
-            .should()
-            .dependOnClassesThat()
-            .resideInAnyPackage(matchAllClassesInPackage(toPackage))
-            .check(classes);
+        denyDependency(fromPackage, toPackage, classes);
       }
     }
   }
