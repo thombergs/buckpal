@@ -6,143 +6,102 @@ import io.reflectoring.buckpal.account.application.port.out.LoadAccountPort;
 import io.reflectoring.buckpal.account.application.port.out.UpdateAccountStatePort;
 import io.reflectoring.buckpal.account.domain.Account;
 import io.reflectoring.buckpal.account.domain.Account.AccountId;
+import io.reflectoring.buckpal.account.domain.ActivityWindow;
 import io.reflectoring.buckpal.account.domain.Money;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Mockito;
 
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.math.BigInteger;
+import java.util.ArrayList;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.BDDMockito.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class SendMoneyServiceTest {
 
-	private final LoadAccountPort loadAccountPort =
-			Mockito.mock(LoadAccountPort.class);
+    FakeAccountRepository repo = new FakeAccountRepository();
 
-	private final AccountLock accountLock =
-			Mockito.mock(AccountLock.class);
+    private final LoadAccountPort loadAccountPort = repo;
 
-	private final UpdateAccountStatePort updateAccountStatePort =
-			Mockito.mock(UpdateAccountStatePort.class);
+    private final AccountLock accountLock = new NoOpAccountLock();
 
-	private final SendMoneyService sendMoneyService =
-			new SendMoneyService(loadAccountPort, accountLock, updateAccountStatePort, moneyTransferProperties());
+    private final UpdateAccountStatePort updateAccountStatePort = repo;
 
-	@Test
-	void givenWithdrawalFails_thenOnlySourceAccountIsLockedAndReleased() {
+    private final SendMoneyService sendMoneyService =
+            new SendMoneyService(loadAccountPort, accountLock, updateAccountStatePort, moneyTransferProperties());
 
-		AccountId sourceAccountId = new AccountId(41L);
-		Account sourceAccount = givenAnAccountWithId(sourceAccountId);
+    @Test
+    void sendMoney_accountHasNotEnoughMoney_transactionFails() {
+        // arrange
+        Account sourceAccount = Account.withId(new AccountId(1234L),
+                new Money(BigInteger.valueOf(200)),
+                new ActivityWindow(new ArrayList<>()));
+        Account targetAccount = Account.withId(new AccountId(4321L),
+                new Money(BigInteger.valueOf(0)),
+                new ActivityWindow(new ArrayList<>()));
+        repo.addAccount(sourceAccount);
+        repo.addAccount(targetAccount);
 
-		AccountId targetAccountId = new AccountId(42L);
-		Account targetAccount = givenAnAccountWithId(targetAccountId);
+        // act
+        SendMoneyCommand command = new SendMoneyCommand(
+                sourceAccount.getId().get(),
+                targetAccount.getId().get(),
+                Money.of(500L)); // withdraw more money than sourceAccount has
+        boolean success = sendMoneyService.sendMoney(command);
 
-		givenWithdrawalWillFail(sourceAccount);
-		givenDepositWillSucceed(targetAccount);
+        // assert
+        assertThat(success).isFalse();
+    }
 
-		SendMoneyCommand command = new SendMoneyCommand(
-				sourceAccountId,
-				targetAccountId,
-				Money.of(300L));
+    @Test
+    void sendMoney_amountOK_transactionSucceeds() {
+        // arrange
+        Account sourceAccount = Account.withId(new AccountId(1234L),
+                new Money(BigInteger.valueOf(1000)),
+                new ActivityWindow(new ArrayList<>()));
+        Account targetAccount = Account.withId(new AccountId(4321L),
+                new Money(BigInteger.valueOf(0)),
+                new ActivityWindow(new ArrayList<>()));
+        repo.addAccount(sourceAccount);
+        repo.addAccount(targetAccount);
+        Money money = Money.of(500L);
 
-		boolean success = sendMoneyService.sendMoney(command);
+        // act
+        SendMoneyCommand command = new SendMoneyCommand(
+                sourceAccount.getId().get(),
+                targetAccount.getId().get(),
+                money);
+        boolean success = sendMoneyService.sendMoney(command);
 
-		assertThat(success).isFalse();
+        // assert
+        assertThat(success).isTrue();
+    }
 
-		then(accountLock).should().lockAccount(eq(sourceAccountId));
-		then(accountLock).should().releaseAccount(eq(sourceAccountId));
-		then(accountLock).should(times(0)).lockAccount(eq(targetAccountId));
-	}
+    @Test
+    void sendMoney_amountOK_moneyIsTransferred() {
+        // arrange
+        Account sourceAccount = Account.withId(new AccountId(1234L),
+                new Money(BigInteger.valueOf(1000)),
+                new ActivityWindow(new ArrayList<>()));
+        Account targetAccount = Account.withId(new AccountId(4321L),
+                new Money(BigInteger.valueOf(0)),
+                new ActivityWindow(new ArrayList<>()));
+        repo.addAccount(sourceAccount);
+        repo.addAccount(targetAccount);
 
-	@Test
-	void transactionSucceeds() {
+        // act
+        SendMoneyCommand command = new SendMoneyCommand(
+                sourceAccount.getId().get(),
+                targetAccount.getId().get(),
+                Money.of(300L));
+        sendMoneyService.sendMoney(command);
 
-		Account sourceAccount = givenSourceAccount();
-		Account targetAccount = givenTargetAccount();
+        // assert
+        Assertions.assertEquals(Money.of(700), sourceAccount.calculateBalance());
+        Assertions.assertEquals(Money.of(300), targetAccount.calculateBalance());
+    }
 
-		givenWithdrawalWillSucceed(sourceAccount);
-		givenDepositWillSucceed(targetAccount);
-
-		Money money = Money.of(500L);
-
-		SendMoneyCommand command = new SendMoneyCommand(
-				sourceAccount.getId().get(),
-				targetAccount.getId().get(),
-				money);
-
-		boolean success = sendMoneyService.sendMoney(command);
-
-		assertThat(success).isTrue();
-
-		AccountId sourceAccountId = sourceAccount.getId().get();
-		AccountId targetAccountId = targetAccount.getId().get();
-
-		then(accountLock).should().lockAccount(eq(sourceAccountId));
-		then(sourceAccount).should().withdraw(eq(money), eq(targetAccountId));
-		then(accountLock).should().releaseAccount(eq(sourceAccountId));
-
-		then(accountLock).should().lockAccount(eq(targetAccountId));
-		then(targetAccount).should().deposit(eq(money), eq(sourceAccountId));
-		then(accountLock).should().releaseAccount(eq(targetAccountId));
-
-		thenAccountsHaveBeenUpdated(sourceAccountId, targetAccountId);
-	}
-
-	private void thenAccountsHaveBeenUpdated(AccountId... accountIds){
-		ArgumentCaptor<Account> accountCaptor = ArgumentCaptor.forClass(Account.class);
-		then(updateAccountStatePort).should(times(accountIds.length))
-				.updateActivities(accountCaptor.capture());
-
-		List<AccountId> updatedAccountIds = accountCaptor.getAllValues()
-				.stream()
-				.map(Account::getId)
-				.map(Optional::get)
-				.collect(Collectors.toList());
-
-		for(AccountId accountId : accountIds){
-			assertThat(updatedAccountIds).contains(accountId);
-		}
-	}
-
-	private void givenDepositWillSucceed(Account account) {
-		given(account.deposit(any(Money.class), any(AccountId.class)))
-				.willReturn(true);
-	}
-
-	private void givenWithdrawalWillFail(Account account) {
-		given(account.withdraw(any(Money.class), any(AccountId.class)))
-				.willReturn(false);
-	}
-
-	private void givenWithdrawalWillSucceed(Account account) {
-		given(account.withdraw(any(Money.class), any(AccountId.class)))
-				.willReturn(true);
-	}
-
-	private Account givenTargetAccount(){
-		return givenAnAccountWithId(new AccountId(42L));
-	}
-
-	private Account givenSourceAccount(){
-		return givenAnAccountWithId(new AccountId(41L));
-	}
-
-	private Account givenAnAccountWithId(AccountId id) {
-		Account account = Mockito.mock(Account.class);
-		given(account.getId())
-				.willReturn(Optional.of(id));
-		given(loadAccountPort.loadAccount(eq(account.getId().get()), any(LocalDateTime.class)))
-				.willReturn(account);
-		return account;
-	}
-
-	private MoneyTransferProperties moneyTransferProperties(){
-		return new MoneyTransferProperties(Money.of(Long.MAX_VALUE));
-	}
+    private MoneyTransferProperties moneyTransferProperties() {
+        return new MoneyTransferProperties(Money.of(Long.MAX_VALUE));
+    }
 
 }
