@@ -2,10 +2,10 @@ package io.reflectoring.buckpal;
 
 import java.time.LocalDateTime;
 
-import io.reflectoring.buckpal.account.application.port.out.LoadAccountPort;
-import io.reflectoring.buckpal.account.domain.Account;
-import io.reflectoring.buckpal.account.domain.Account.AccountId;
-import io.reflectoring.buckpal.account.domain.Money;
+import io.reflectoring.buckpal.application.port.out.LoadAccountPort;
+import io.reflectoring.buckpal.application.domain.model.Account;
+import io.reflectoring.buckpal.application.domain.model.Account.AccountId;
+import io.reflectoring.buckpal.application.domain.model.Money;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

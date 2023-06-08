@@ -1,9 +1,9 @@
 package io.reflectoring.buckpal.common;
 
-import io.reflectoring.buckpal.account.domain.Account;
-import io.reflectoring.buckpal.account.domain.Account.AccountId;
-import io.reflectoring.buckpal.account.domain.ActivityWindow;
-import io.reflectoring.buckpal.account.domain.Money;
+import io.reflectoring.buckpal.application.domain.model.Account;
+import io.reflectoring.buckpal.application.domain.model.Account.AccountId;
+import io.reflectoring.buckpal.application.domain.model.ActivityWindow;
+import io.reflectoring.buckpal.application.domain.model.Money;
 
 public class AccountTestData {
 

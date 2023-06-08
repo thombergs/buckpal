@@ -3,15 +3,16 @@ package io.reflectoring.buckpal;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
 import io.reflectoring.buckpal.archunit.HexagonalArchitecture;
 import org.junit.jupiter.api.Test;
-import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.*;
+
+import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 
 class DependencyRuleTests {
 
 	@Test
 	void validateRegistrationContextArchitecture() {
-		HexagonalArchitecture.boundedContext("io.reflectoring.buckpal.account")
+		HexagonalArchitecture.basePackage("io.reflectoring.buckpal")
 
-				.withDomainLayer("domain")
+				.withDomainLayer("application.domain")
 
 				.withAdaptersLayer("adapter")
 				.incoming("in.web")
@@ -19,7 +20,6 @@ class DependencyRuleTests {
 				.and()
 
 				.withApplicationLayer("application")
-				.services("service")
 				.incomingPorts("port.in")
 				.outgoingPorts("port.out")
 				.and()
@@ -33,12 +33,16 @@ class DependencyRuleTests {
 	void testPackageDependencies() {
 		noClasses()
 				.that()
-				.resideInAPackage("io.reflectoring.reviewapp.domain..")
+				.resideInAPackage("io.reflectoring.buckpal.application.domain.model..")
 				.should()
 				.dependOnClassesThat()
-				.resideInAnyPackage("io.reflectoring.reviewapp.application..")
+				.resideOutsideOfPackages(
+						"io.reflectoring.buckpal.application.domain.model..",
+						"lombok..",
+						"java.."
+				)
 				.check(new ClassFileImporter()
-						.importPackages("io.reflectoring.reviewapp.."));
+						.importPackages("io.reflectoring.buckpal.."));
 	}
 
 }
