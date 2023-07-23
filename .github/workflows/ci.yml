@@ -13,7 +13,7 @@ jobs:
     - name: "Setup Java"
       uses: actions/setup-java@v1
       with:
-        java-version: 14
+        java-version: 17
 
     - name: "Initialize Gradle dependencies cache"
       uses: actions/cache@v2
