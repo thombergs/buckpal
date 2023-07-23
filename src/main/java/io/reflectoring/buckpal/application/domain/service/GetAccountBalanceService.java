@@ -1,21 +1,20 @@
 package io.reflectoring.buckpal.application.domain.service;
 
-import java.time.LocalDateTime;
-
-import io.reflectoring.buckpal.application.port.in.GetAccountBalanceQuery;
-import io.reflectoring.buckpal.application.port.out.LoadAccountPort;
-import io.reflectoring.buckpal.application.domain.model.Account.AccountId;
 import io.reflectoring.buckpal.application.domain.model.Money;
+import io.reflectoring.buckpal.application.port.in.GetAccountBalanceUseCase;
+import io.reflectoring.buckpal.application.port.out.LoadAccountPort;
 import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @RequiredArgsConstructor
-class GetAccountBalanceService implements GetAccountBalanceQuery {
+class GetAccountBalanceService implements GetAccountBalanceUseCase {
 
 	private final LoadAccountPort loadAccountPort;
 
 	@Override
-	public Money getAccountBalance(AccountId accountId) {
-		return loadAccountPort.loadAccount(accountId, LocalDateTime.now())
+	public Money getAccountBalance(GetAccountBalanceQuery query) {
+		return loadAccountPort.loadAccount(query.accountId(), LocalDateTime.now())
 				.calculateBalance();
 	}
 }

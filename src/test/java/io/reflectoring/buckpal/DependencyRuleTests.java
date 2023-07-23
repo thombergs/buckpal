@@ -30,7 +30,7 @@ class DependencyRuleTests {
 	}
 
 	@Test
-	void testPackageDependencies() {
+	void domainModelDoesNotDependOnOutside() {
 		noClasses()
 				.that()
 				.resideInAPackage("io.reflectoring.buckpal.application.domain.model..")

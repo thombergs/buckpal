@@ -46,7 +46,8 @@ class AccountTest {
 								.withMoney(Money.of(1L)).build()))
 				.build();
 
-		boolean success = account.withdraw(Money.of(555L), new AccountId(99L));
+		AccountId randomTargetAccount = new AccountId(99L);
+		boolean success = account.withdraw(Money.of(555L), randomTargetAccount);
 
 		assertThat(success).isTrue();
 		assertThat(account.getActivityWindow().getActivities()).hasSize(3);

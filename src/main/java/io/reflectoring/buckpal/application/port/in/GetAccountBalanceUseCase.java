@@ -3,8 +3,10 @@ package io.reflectoring.buckpal.application.port.in;
 import io.reflectoring.buckpal.application.domain.model.Account.AccountId;
 import io.reflectoring.buckpal.application.domain.model.Money;
 
-public interface GetAccountBalanceQuery {
+public interface GetAccountBalanceUseCase {
 
-	Money getAccountBalance(AccountId accountId);
+	Money getAccountBalance(GetAccountBalanceQuery query);
 
+	record GetAccountBalanceQuery(AccountId accountId) {
+	}
 }
