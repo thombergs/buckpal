@@ -31,7 +31,7 @@ This is the self-published version, which is only available electronically.
 * Explore a hands-on approach of implementing a Hexagonal architecture with example code [on GitHub](https://github.com/thombergs/buckpal).
 * Develop your domain code independent of database or web concerns.
 
-{{% image src="/images/gyhdoca/hexagonal-architecture.png" %}}
+![Hexagonal Architecture](img/hexagonal-architecture.png)
 
 ### Get a Grip on Your Layers
 
@@ -42,7 +42,7 @@ This is the self-published version, which is only available electronically.
 * Learn the consequences of shortcuts and when to accept them.
 * ... and [more](#table-of-contents).
 
-{{% image src="/images/gyhdoca/dependencies.png" %}}
+![Dependencies](img/dependencies.png)
 
 ### What Readers Say
 
