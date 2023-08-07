@@ -76,8 +76,8 @@ class SendMoneySystemTest {
                 HttpMethod.POST,
                 request,
                 Object.class,
-                sourceAccountId.getValue(),
-                targetAccountId.getValue(),
+                sourceAccountId.value(),
+                targetAccountId.value(),
                 amount.getAmount());
     }
 

@@ -28,23 +28,23 @@ class AccountPersistenceAdapter implements
             LocalDateTime baselineDate) {
 
         AccountJpaEntity account =
-                accountRepository.findById(accountId.getValue())
+                accountRepository.findById(accountId.value())
                         .orElseThrow(EntityNotFoundException::new);
 
         List<ActivityJpaEntity> activities =
                 activityRepository.findByOwnerSince(
-                        accountId.getValue(),
+                        accountId.value(),
                         baselineDate);
 
         Long withdrawalBalance = activityRepository
                 .getWithdrawalBalanceUntil(
-                        accountId.getValue(),
+                        accountId.value(),
                         baselineDate)
                 .orElse(0L);
 
         Long depositBalance = activityRepository
                 .getDepositBalanceUntil(
-                        accountId.getValue(),
+                        accountId.value(),
                         baselineDate)
                 .orElse(0L);
 

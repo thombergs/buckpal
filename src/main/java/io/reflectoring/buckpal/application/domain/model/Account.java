@@ -3,7 +3,6 @@ package io.reflectoring.buckpal.application.domain.model;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Value;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -114,9 +113,7 @@ public class Account {
         return true;
     }
 
-    @Value
-    public static class AccountId {
-        private Long value;
+    public record AccountId(Long value) {
     }
 
 }
