@@ -49,12 +49,12 @@ class AccountMapper {
 
     ActivityJpaEntity mapToJpaEntity(Activity activity) {
         return new ActivityJpaEntity(
-                activity.getId() == null ? null : activity.getId().getValue(),
-                activity.getTimestamp(),
-                activity.getOwnerAccountId().value(),
-                activity.getSourceAccountId().value(),
-                activity.getTargetAccountId().value(),
-                activity.getMoney().amount().longValue());
+                activity.id() == null ? null : activity.id().value(),
+                activity.timestamp(),
+                activity.ownerAccountId().value(),
+                activity.sourceAccountId().value(),
+                activity.targetAccountId().value(),
+                activity.money().amount().longValue());
     }
 
 }

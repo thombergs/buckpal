@@ -79,7 +79,7 @@ public class Account {
             return false;
         }
 
-        Activity withdrawal = new Activity(
+        Activity withdrawal = Activity.of(
                 this.id,
                 this.id,
                 targetAccountId,
@@ -103,7 +103,7 @@ public class Account {
      * @return true if the deposit was successful, false if not.
      */
     public boolean deposit(Money money, AccountId sourceAccountId) {
-        Activity deposit = new Activity(
+        Activity deposit = Activity.of(
                 this.id,
                 sourceAccountId,
                 this.id,

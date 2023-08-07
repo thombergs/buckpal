@@ -28,9 +28,9 @@ public class ActivityWindow {
      */
     public LocalDateTime getStartTimestamp() {
         return activities.stream()
-                .min(Comparator.comparing(Activity::getTimestamp))
+                .min(Comparator.comparing(Activity::timestamp))
                 .orElseThrow(IllegalStateException::new)
-                .getTimestamp();
+                .timestamp();
     }
 
     /**
@@ -40,9 +40,9 @@ public class ActivityWindow {
      */
     public LocalDateTime getEndTimestamp() {
         return activities.stream()
-                .max(Comparator.comparing(Activity::getTimestamp))
+                .max(Comparator.comparing(Activity::timestamp))
                 .orElseThrow(IllegalStateException::new)
-                .getTimestamp();
+                .timestamp();
     }
 
     /**
@@ -50,13 +50,13 @@ public class ActivityWindow {
      */
     public Money calculateBalance(Account.AccountId accountId) {
         Money depositBalance = activities.stream()
-                .filter(a -> a.getTargetAccountId().equals(accountId))
-                .map(Activity::getMoney)
+                .filter(a -> a.targetAccountId().equals(accountId))
+                .map(Activity::money)
                 .reduce(Money.ZERO, Money::add);
 
         Money withdrawalBalance = activities.stream()
-                .filter(a -> a.getSourceAccountId().equals(accountId))
-                .map(Activity::getMoney)
+                .filter(a -> a.sourceAccountId().equals(accountId))
+                .map(Activity::money)
                 .reduce(Money.ZERO, Money::add);
 
         return Money.add(depositBalance, withdrawalBalance.negate());
