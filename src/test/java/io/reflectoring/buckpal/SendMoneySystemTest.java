@@ -78,7 +78,7 @@ class SendMoneySystemTest {
                 Object.class,
                 sourceAccountId.value(),
                 targetAccountId.value(),
-                amount.getAmount());
+                amount.amount());
     }
 
     private Money transferredAmount() {

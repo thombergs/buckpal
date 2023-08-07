@@ -1,17 +1,12 @@
 package io.reflectoring.buckpal.application.domain.model;
 
 import lombok.NonNull;
-import lombok.Value;
 
 import java.math.BigInteger;
 
-@Value
-public class Money {
+public record Money(@NonNull BigInteger amount) {
 
     public static Money ZERO = Money.of(0L);
-
-    @NonNull
-    private final BigInteger amount;
 
     public static Money of(long value) {
         return new Money(BigInteger.valueOf(value));
