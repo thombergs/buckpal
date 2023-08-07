@@ -8,41 +8,41 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 
 class DependencyRuleTests {
 
-	@Test
-	void validateRegistrationContextArchitecture() {
-		HexagonalArchitecture.basePackage("io.reflectoring.buckpal")
+    @Test
+    void validateRegistrationContextArchitecture() {
+        HexagonalArchitecture.basePackage("io.reflectoring.buckpal")
 
-				.withDomainLayer("application.domain")
+                .withDomainLayer("application.domain")
 
-				.withAdaptersLayer("adapter")
-				.incoming("in.web")
-				.outgoing("out.persistence")
-				.and()
+                .withAdaptersLayer("adapter")
+                .incoming("in.web")
+                .outgoing("out.persistence")
+                .and()
 
-				.withApplicationLayer("application")
-				.incomingPorts("port.in")
-				.outgoingPorts("port.out")
-				.and()
+                .withApplicationLayer("application")
+                .incomingPorts("port.in")
+                .outgoingPorts("port.out")
+                .and()
 
-				.withConfiguration("configuration")
-				.check(new ClassFileImporter()
-						.importPackages("io.reflectoring.buckpal.."));
-	}
+                .withConfiguration("configuration")
+                .check(new ClassFileImporter()
+                        .importPackages("io.reflectoring.buckpal.."));
+    }
 
-	@Test
-	void domainModelDoesNotDependOnOutside() {
-		noClasses()
-				.that()
-				.resideInAPackage("io.reflectoring.buckpal.application.domain.model..")
-				.should()
-				.dependOnClassesThat()
-				.resideOutsideOfPackages(
-						"io.reflectoring.buckpal.application.domain.model..",
-						"lombok..",
-						"java.."
-				)
-				.check(new ClassFileImporter()
-						.importPackages("io.reflectoring.buckpal.."));
-	}
+    @Test
+    void domainModelDoesNotDependOnOutside() {
+        noClasses()
+                .that()
+                .resideInAPackage("io.reflectoring.buckpal.application.domain.model..")
+                .should()
+                .dependOnClassesThat()
+                .resideOutsideOfPackages(
+                        "io.reflectoring.buckpal.application.domain.model..",
+                        "lombok..",
+                        "java.."
+                )
+                .check(new ClassFileImporter()
+                        .importPackages("io.reflectoring.buckpal.."));
+    }
 
 }

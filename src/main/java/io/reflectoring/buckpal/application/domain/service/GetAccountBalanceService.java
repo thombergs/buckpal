@@ -10,11 +10,11 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 class GetAccountBalanceService implements GetAccountBalanceUseCase {
 
-	private final LoadAccountPort loadAccountPort;
+    private final LoadAccountPort loadAccountPort;
 
-	@Override
-	public Money getAccountBalance(GetAccountBalanceQuery query) {
-		return loadAccountPort.loadAccount(query.accountId(), LocalDateTime.now())
-				.calculateBalance();
-	}
+    @Override
+    public Money getAccountBalance(GetAccountBalanceQuery query) {
+        return loadAccountPort.loadAccount(query.accountId(), LocalDateTime.now())
+                .calculateBalance();
+    }
 }
