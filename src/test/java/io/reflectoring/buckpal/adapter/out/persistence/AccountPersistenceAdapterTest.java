@@ -39,7 +39,7 @@ class AccountPersistenceAdapterTest {
     void updatesActivities() {
         Account account = defaultAccount()
                 .withBaselineBalance(Money.of(555L))
-                .withActivityWindow(new ActivityWindow(
+                .withActivityWindow(ActivityWindow.of(
                         defaultActivity()
                                 .withId(null)
                                 .withMoney(Money.of(1L)).build()))

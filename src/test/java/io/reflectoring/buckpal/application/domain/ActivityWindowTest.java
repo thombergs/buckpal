@@ -14,7 +14,7 @@ class ActivityWindowTest {
 
     @Test
     void calculatesStartTimestamp() {
-        ActivityWindow window = new ActivityWindow(
+        ActivityWindow window = ActivityWindow.of(
                 defaultActivity().withTimestamp(startDate()).build(),
                 defaultActivity().withTimestamp(inBetweenDate()).build(),
                 defaultActivity().withTimestamp(endDate()).build());
@@ -24,7 +24,7 @@ class ActivityWindowTest {
 
     @Test
     void calculatesEndTimestamp() {
-        ActivityWindow window = new ActivityWindow(
+        ActivityWindow window = ActivityWindow.of(
                 defaultActivity().withTimestamp(startDate()).build(),
                 defaultActivity().withTimestamp(inBetweenDate()).build(),
                 defaultActivity().withTimestamp(endDate()).build());
@@ -38,7 +38,7 @@ class ActivityWindowTest {
         AccountId account1 = new AccountId(1L);
         AccountId account2 = new AccountId(2L);
 
-        ActivityWindow window = new ActivityWindow(
+        ActivityWindow window = ActivityWindow.of(
                 defaultActivity()
                         .withSourceAccount(account1)
                         .withTargetAccount(account2)

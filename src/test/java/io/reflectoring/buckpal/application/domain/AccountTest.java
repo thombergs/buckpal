@@ -18,7 +18,7 @@ class AccountTest {
         Account account = defaultAccount()
                 .withAccountId(accountId)
                 .withBaselineBalance(Money.of(555L))
-                .withActivityWindow(new ActivityWindow(
+                .withActivityWindow(ActivityWindow.of(
                         defaultActivity()
                                 .withTargetAccount(accountId)
                                 .withMoney(Money.of(999L)).build(),
@@ -38,7 +38,7 @@ class AccountTest {
         Account account = defaultAccount()
                 .withAccountId(accountId)
                 .withBaselineBalance(Money.of(555L))
-                .withActivityWindow(new ActivityWindow(
+                .withActivityWindow(ActivityWindow.of(
                         defaultActivity()
                                 .withTargetAccount(accountId)
                                 .withMoney(Money.of(999L)).build(),
@@ -61,7 +61,7 @@ class AccountTest {
         Account account = defaultAccount()
                 .withAccountId(accountId)
                 .withBaselineBalance(Money.of(555L))
-                .withActivityWindow(new ActivityWindow(
+                .withActivityWindow(ActivityWindow.of(
                         defaultActivity()
                                 .withTargetAccount(accountId)
                                 .withMoney(Money.of(999L)).build(),
@@ -83,7 +83,7 @@ class AccountTest {
         Account account = defaultAccount()
                 .withAccountId(accountId)
                 .withBaselineBalance(Money.of(555L))
-                .withActivityWindow(new ActivityWindow(
+                .withActivityWindow(ActivityWindow.of(
                         defaultActivity()
                                 .withTargetAccount(accountId)
                                 .withMoney(Money.of(999L)).build(),

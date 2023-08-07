@@ -7,20 +7,13 @@ import java.util.*;
 
 /**
  * A window of account activities.
+ *
+ * @param activities The list of account activities within this window.
  */
-public class ActivityWindow {
+public record ActivityWindow(@NonNull List<Activity> activities) {
 
-    /**
-     * The list of account activities within this window.
-     */
-    private List<Activity> activities;
-
-    public ActivityWindow(@NonNull List<Activity> activities) {
-        this.activities = activities;
-    }
-
-    public ActivityWindow(@NonNull Activity... activities) {
-        this.activities = new ArrayList<>(Arrays.asList(activities));
+    public static ActivityWindow of(@NonNull Activity... activities) {
+        return new ActivityWindow(new ArrayList<>(List.of(activities)));
     }
 
     /**

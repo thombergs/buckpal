@@ -11,7 +11,7 @@ public class AccountTestData {
         return new AccountBuilder()
                 .withAccountId(new AccountId(42L))
                 .withBaselineBalance(Money.of(999L))
-                .withActivityWindow(new ActivityWindow(
+                .withActivityWindow(ActivityWindow.of(
                         ActivityTestData.defaultActivity().build(),
                         ActivityTestData.defaultActivity().build()));
     }
