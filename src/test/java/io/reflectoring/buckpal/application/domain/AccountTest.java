@@ -51,7 +51,7 @@ class AccountTest {
         boolean success = account.withdraw(Money.of(555L), randomTargetAccount);
 
         assertThat(success).isTrue();
-        assertThat(account.getActivityWindow().getActivities()).hasSize(3);
+        assertThat(account.activityWindow().getActivities()).hasSize(3);
         assertThat(account.calculateBalance()).isEqualTo(Money.of(1000L));
     }
 
@@ -73,7 +73,7 @@ class AccountTest {
         boolean success = account.withdraw(Money.of(1556L), new AccountId(99L));
 
         assertThat(success).isFalse();
-        assertThat(account.getActivityWindow().getActivities()).hasSize(2);
+        assertThat(account.activityWindow().getActivities()).hasSize(2);
         assertThat(account.calculateBalance()).isEqualTo(Money.of(1555L));
     }
 
@@ -95,7 +95,7 @@ class AccountTest {
         boolean success = account.deposit(Money.of(445L), new AccountId(99L));
 
         assertThat(success).isTrue();
-        assertThat(account.getActivityWindow().getActivities()).hasSize(3);
+        assertThat(account.activityWindow().getActivities()).hasSize(3);
         assertThat(account.calculateBalance()).isEqualTo(Money.of(2000L));
     }
 

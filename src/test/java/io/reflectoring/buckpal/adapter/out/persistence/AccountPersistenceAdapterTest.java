@@ -31,7 +31,7 @@ class AccountPersistenceAdapterTest {
     void loadsAccount() {
         Account account = adapterUnderTest.loadAccount(new AccountId(1L), LocalDateTime.of(2018, 8, 10, 0, 0));
 
-        assertThat(account.getActivityWindow().getActivities()).hasSize(2);
+        assertThat(account.activityWindow().getActivities()).hasSize(2);
         assertThat(account.calculateBalance()).isEqualTo(Money.of(500));
     }
 
