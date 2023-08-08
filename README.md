@@ -1,6 +1,7 @@
 # Get Your Hands Dirty on Clean Architecture
 
-This repository implements a small web app in the Hexagonal Architecture style, as discussed in the book "Get Your Hands Dirty on Clean Architecture".
+This repository implements a small web app in the Hexagonal Architecture style, as discussed in the book "Get Your Hands
+Dirty on Clean Architecture".
 
 The code has been updated to the 2nd edition of the book.
 
@@ -25,10 +26,12 @@ This is the self-published version, which is only available electronically.
 * this project uses Lombok, so enable annotation processing in your IDE
 
 ## About the book
+
 ### All About Hexagonal Architecture
 
 * Learn the concepts behind "Clean Architecture" and "Hexagonal Architecture".
-* Explore a hands-on approach of implementing a Hexagonal architecture with example code [on GitHub](https://github.com/thombergs/buckpal).
+* Explore a hands-on approach of implementing a Hexagonal architecture with example
+  code [on GitHub](https://github.com/thombergs/buckpal).
 * Develop your domain code independent of database or web concerns.
 
 ![Hexagonal Architecture](img/hexagonal-architecture.png)
@@ -46,19 +49,25 @@ This is the self-published version, which is only available electronically.
 
 ### What Readers Say
 
-> Tom Hombergs has done a terrific job in explaining clean architecture - from concepts to code. Really wish more technical books would be as clear as that one!
+> Tom Hombergs has done a terrific job in explaining clean architecture - from concepts to code. Really wish more
+> technical books would be as clear as that one!
 
-Gernot Starke - Fellow at [INNOQ](https://www.innoq.com/en/staff/gernot-starke/), Founder of [arc42](https://arc42.org/), Author of Software Architecture Books, Coach, and Consultant
+Gernot Starke - Fellow at [INNOQ](https://www.innoq.com/en/staff/gernot-starke/), Founder
+of [arc42](https://arc42.org/), Author of Software Architecture Books, Coach, and Consultant
 
 > Love your book. One of the most practical books on hexagonal architecture I have seen/read so far.
 
-Marten Deinum - Spring Framework Contributor and Author of ["Spring 5 Recipes"](https://www.amazon.com/Spring-5-Recipes-Problem-Solution-Approach/dp/1484227891&tag=reflectorin0c-20) and ["Spring Boot 2 Recipes"](https://www.amazon.com/Spring-Boot-Recipes-Problem-Solution-Approach/dp/1484239628&tag=reflectorin0c-20)
+Marten Deinum - Spring Framework Contributor and Author
+of ["Spring 5 Recipes"](https://www.amazon.com/Spring-5-Recipes-Problem-Solution-Approach/dp/1484227891&tag=reflectorin0c-20)
+and ["Spring Boot 2 Recipes"](https://www.amazon.com/Spring-Boot-Recipes-Problem-Solution-Approach/dp/1484239628&tag=reflectorin0c-20)
 
-> A book taken right out of the machine room of software development. Tom talks straight from his experience and guides you through the day-to-day trade-offs necessary to deliver clean architecture.
+> A book taken right out of the machine room of software development. Tom talks straight from his experience and guides
+> you through the day-to-day trade-offs necessary to deliver clean architecture.
 
 Sebastian Kempken - Software Architect at Adcubum
 
-> Thank you for the great book, it helped me gain significant insight into how one would go about implementing hexagonal and DDD in a modern Spring project.
+> Thank you for the great book, it helped me gain significant insight into how one would go about implementing hexagonal
+> and DDD in a modern Spring project.
 
 Spyros Vallianos - Java Developer at Konnekt-able
 

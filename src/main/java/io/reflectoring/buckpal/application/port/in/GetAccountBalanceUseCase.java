@@ -5,8 +5,8 @@ import io.reflectoring.buckpal.application.domain.model.Money;
 
 public interface GetAccountBalanceUseCase {
 
-	Money getAccountBalance(GetAccountBalanceQuery query);
+    Money getAccountBalance(GetAccountBalanceQuery query);
 
-	record GetAccountBalanceQuery(AccountId accountId) {
-	}
+    record GetAccountBalanceQuery(AccountId accountId) {
+    }
 }
